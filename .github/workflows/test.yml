@@ -1,0 +1,23 @@
+name: submission_test
+
+on: [push, pull_request]
+
+jobs:
+  submission_test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout student code
+      uses: actions/checkout@v2
+
+    - name: Checkout grading scripts
+      uses: actions/checkout@v2
+      with:
+        repository: ZhiLiu724/orie5355_upload_test
+        path: orie5355_upload_test
+
+    - name: Install Dependencies from upload test repo
+      run: pip install -r orie5355_upload_test/requirements.txt
+    
+    - name: Test the submitted code
+      run: python orie5355_upload_test/test.py
